@@ -1,39 +1,16 @@
 const { default: mongoose, mongo } = require('mongoose')
 const User = require('../model/User')
+const bcrypt = require('bcrypt')
+
 const getUsers = async (req, res) => {
   try {
     const users = await User.find()
-    console.log(users)
     if (users.length === 0)
       return res.status(204).json({ message: 'No users found' })
     return res.json(users)
   } catch (err) {
     console.log(err)
   }
-}
-
-const createUser = async (req, res) => {
-  const { firstname, lastname, password, username } = req.body
-  const duplicate = await User.findOne({ username: username }).exec()
-  if (duplicate) {
-    return res.status(409).json({
-      message: `User with the username: ${username} already exists.`
-    })
-  }
-  const result = new User({
-    firstname: firstname.trim(),
-    lastname: lastname.trim(),
-    password: password.trim(),
-    username: username.trim()
-  })
-  try {
-    await result.save()
-  } catch (err) {
-    console.log(err)
-    return res.status(400).json(err.errors)
-  }
-
-  return res.status(201).json(result)
 }
 
 const updateUser = async (req, res) => {
@@ -50,11 +27,12 @@ const updateUser = async (req, res) => {
         .status(204)
         .json({ message: `User with the ID: ${id} doesn't exist.` })
     try {
+      
       const result = await user.updateOne(
         {
           firstname: firstname?.trim(),
           lastname: lastname?.trim(),
-          password: password?.trim(),
+          password: password && bcrypt.hashSync(password?.trim(), 10),
           username: username?.trim()
         },
         {
@@ -116,4 +94,4 @@ const getUser = async (req, res) => {
   }
 }
 
-module.exports = { getUsers, getUser, createUser, updateUser, deleteUser }
+module.exports = { getUsers, getUser, updateUser, deleteUser }

@@ -1,0 +1,1 @@
+79e08c02-0242-49a5-b316-5cd5a40fb498	2023/09/01	16:13:29	TypeError: res.clearCookies is not a function	POST	undefined	/api/logout

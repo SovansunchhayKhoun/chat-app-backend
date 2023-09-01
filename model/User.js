@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema({
     }
   },
   password: {
-    required: 'Password is required!',
     type: String,
+    required: 'Password is required!',
     minLength: [8, 'Invalid password: {MINLENGTH} letters minimum'],
     maxLength: [64, 'Password must not exceed {MAXLENGTH} letters'],
     validate: {
@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema({
       message: props => `Invalid password: 2 letters minimum and 64 letters maximum`
     }
   },
+  refreshToken: String,
 }, {timestamps: true})
 
 module.exports = mongoose.model('User', userSchema)
