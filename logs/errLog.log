@@ -1,1 +1,1 @@
-79e08c02-0242-49a5-b316-5cd5a40fb498	2023/09/01	16:13:29	TypeError: res.clearCookies is not a function	POST	undefined	/api/logout
+79e08c02-0242-49a5-b316-5cd5a40fb498	2023/09/01	16:13:29	TypeError: res.clearCookies is not a function	POST	undefined	/api/logout6ea294f1-8531-479b-9615-e3c091b9bae5	2023/09/02	13:56:05	Error: Cannot set headers after they are sent to the client	POST	http://localhost:3000	/api/login

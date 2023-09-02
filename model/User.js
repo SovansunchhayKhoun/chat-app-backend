@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
     maxLength: [64, 'Password must not exceed {MAXLENGTH} letters'],
     validate: {
       validator: v => v.length >= 8 && v.length <=64,
-      message: props => `Invalid password: 2 letters minimum and 64 letters maximum`
+      message: props => `Invalid password: 8 letters minimum and 64 letters maximum`
     }
   },
   refreshToken: String,

@@ -7,7 +7,7 @@ const handleRegistration = async (req, res) => {
   const duplicate = await User.findOne({ username: username }).exec()
   if (duplicate) {
     return res.status(409).json({
-      message: `User with the username: ${username} already exists.`
+      message: `Username ${username} already exists.`
     })
   }
   
@@ -49,7 +49,7 @@ const handleLogin = async (req, res) => {
     const accessToken = jwt.sign(
       { firstname, lastname, username, _id },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "20s" }
+      { expiresIn: "300s" }
     );
     const refreshToken = jwt.sign(
       { firstname, lastname, username, _id },
@@ -67,7 +67,8 @@ const handleLogin = async (req, res) => {
       secure: true,
       maxAge: 60 * 60 * 1000,
     });
-    return res.status(200).json({ accessToken, user: result });
+    
+    return res.status(200).json({ accessToken });
   } else {
     res.status(401).json({ message: "Invalid Credentials" });
   }
@@ -93,7 +94,7 @@ const handleRefreshToken = async (req, res) => {
       const accessToken = jwt.sign(
         { firstname, lastname, _id, username },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "20s" }
+        { expiresIn: "300s" }
       );
 
       res.json({ accessToken });
