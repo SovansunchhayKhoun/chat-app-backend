@@ -23,7 +23,7 @@ const logEvent = async (message, logFileName) => {
 const logger = (req, res, next) => {
   const message = `${req.method}\t${req.headers.origin}\t${req.url}`
   logEvent(message, 'reqLog.log')
-  console.log(message)
+  // console.log(message)
   next()
 }
 
