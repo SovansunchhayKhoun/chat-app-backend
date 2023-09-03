@@ -1,2 +1,6 @@
 node_modules
 .env
+logs
+logs/reqLog.log
+logs/errLog.log
+
