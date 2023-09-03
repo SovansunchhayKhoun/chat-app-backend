@@ -3,8 +3,10 @@ const router = express.Router();
 const chatRoomController = require("../../controllers/chatRoomController");
 const verifyJwt = require("../../middleware/verifyJwt");
 const messageController = require("../../controllers/messageController");
+const { requestLimiter } = require('../../middleware/limiter')
 
-// router.use(verifyJwt)
+router.use(requestLimiter)
+
 router
   .route("/chat-rooms")
   .get(chatRoomController.getChatRooms)
