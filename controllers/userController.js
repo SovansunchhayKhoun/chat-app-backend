@@ -1,6 +1,6 @@
 const { default: mongoose, mongo } = require("mongoose");
 const User = require("../model/User");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const getUsers = async (req, res) => {
   try {

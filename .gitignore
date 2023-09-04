@@ -7,3 +7,5 @@ logs/reqLog.log
 
 # Local Netlify folder
 .netlify
+
+functions
