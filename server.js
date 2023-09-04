@@ -8,6 +8,7 @@ const corsOption = require("./config/corsOptions");
 const { logger } = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
+const api = require('./config/api')
 const connect = require("./config/conDB");
 require("dotenv").config();
 const PORT = 5000;
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
+app.use(api)
 
 app.use("/api", require("./routes/api/auth"));
 app.use("/api", require("./routes/api/user"));
