@@ -12,7 +12,7 @@ router
   .get(chatRoomController.getChatRooms)
   .post(chatRoomController.createChatRoom);
 
-router.route("/chat-room").post(chatRoomController.getChatRoom);
+// router.route("/chat-room").post(chatRoomController.getChatRoom);
 
 router
   .route("/messages")
