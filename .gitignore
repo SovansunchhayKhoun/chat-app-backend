@@ -4,3 +4,6 @@ logs/reqLog.log
 logs/errLog.log
 
 logs/reqLog.log
+
+# Local Netlify folder
+.netlify
