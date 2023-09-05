@@ -2,6 +2,9 @@
 
 #### It is built using NodeJs (v18.17.1) and ExpressV4 with Socket.io for Realtime chatting
 
+#### This api is deployed using Heroku 
+<a href="https://chatapp-api-d8e50ccd8b77.herokuapp.com/api">ChatApp Api</a>
+
 #### Install Dependencies
 - Run `npm install` if there's any error, try `npm install --force`
 - Also install nodemon `npm install -g nodemon` for automatic node server restart
