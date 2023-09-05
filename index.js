@@ -38,7 +38,7 @@ app.use("/api", router);
 app.use(errorHandler);
 
 const server = http.createServer(app);
-console.log(process.env.PORT)
+console.log(process.env.PORT);
 const io = new Server(server, {
   cors: {
     origin: [
@@ -51,14 +51,14 @@ const io = new Server(server, {
   },
 });
 
+io.on("connection", (socket) => {
+  socket.on("send_message", (data) => {
+    socket.broadcast.emit("receive_message", data);
+  });
+});
+
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
-  io.on("connection", (socket) => {
-    socket.on("send_message", (data) => {
-      console.log(data);
-      socket.broadcast.emit("receive_message", data);
-    });
-  });
   server.listen(PORT, () => {
     console.log(`Listening on PORT ${PORT}`);
   });

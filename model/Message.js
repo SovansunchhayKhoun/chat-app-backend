@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { format } = require("date-fns");
-const timeSent = format(new Date(), "yyyy/MM/dd HH:mm:ss");
+// const timeSent = format(new Date(), "yyyy/MM/dd HH:mm:ss");
 
 const ObjectId = mongoose.Schema.ObjectId;
 
@@ -52,7 +52,7 @@ const messageSchema = new mongoose.Schema(
     },
     timeSent: {
       type: String,
-      default: timeSent,
+      required: 'Time sent is required'
     },
   },
   {

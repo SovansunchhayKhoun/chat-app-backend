@@ -20,10 +20,13 @@ const getChatRoomMessages = async (req, res) => {
   if (!chatRoomId)
     return res.status(400).json({ message: "ChatRoomId param is requiredd" });
 
-  if (!checkId(chatRoomId)) return res.status(400).json({ message: "Invalid ChatRoomId"});
+  if (!checkId(chatRoomId))
+    return res.status(400).json({ message: "Invalid ChatRoomId" });
 
   try {
-    const messages = await Message.find({ chatRoomId }).populate(['chatRoomId']);
+    const messages = await Message.find({ chatRoomId }).populate([
+      "chatRoomId",
+    ]);
     if (messages.length === 0)
       return res
         .status(204)
@@ -35,20 +38,26 @@ const getChatRoomMessages = async (req, res) => {
 };
 
 const createMessage = async (req, res) => {
-  const { messageContent, senderId, receiverId, chatRoomId } = req.body;
+  const { messageContent, senderId, receiverId, chatRoomId, timeSent } =
+    req.body;
   try {
     if (messageContent.trim() === "")
-      return res.status(400).json({ message: "Message is required" });
+      return res.status(400).json({ message: "messageContent is required" });
     if (!senderId)
-      return res.status(400).json({ message: "SenderId is required" });
+      return res.status(400).json({ message: "senderId is required" });
     if (!receiverId)
-      return res.status(400).json({ message: "ReceiverId is required" });
+      return res.status(400).json({ message: "receiverId is required" });
     if (!chatRoomId)
-      return res.status(400).json({ message: "ChatroomId is required" });
+      return res.status(400).json({ message: "chatroomId is required" });
+    if (!timeSent)
+      return res.status(400).json({ message: "timeSent is required" });
 
-    if(!checkId(senderId)) return res.status(400).json({ message: "SenderId is invalid"});
-    if(!checkId(receiverId)) return res.status(400).json({ message: "ReceiverId is invalid"});
-    if(!checkId(chatRoomId)) return res.status(400).json({ message: "ChatRoomId is invalid"});
+    if (!checkId(senderId))
+      return res.status(400).json({ message: "senderId is invalid" });
+    if (!checkId(receiverId))
+      return res.status(400).json({ message: "receiverId is invalid" });
+    if (!checkId(chatRoomId))
+      return res.status(400).json({ message: "chatRoomId is invalid" });
 
     const isReceiver = await User.findOne({ _id: receiverId }).exec();
     const isSender = await User.findOne({ _id: senderId }).exec();
@@ -66,10 +75,12 @@ const createMessage = async (req, res) => {
       senderId,
       receiverId,
       chatRoomId,
+      timeSent
     });
 
     const result = await newMessage.save();
-    return res.status(201).json({ message: result });
+    const chatRoomMsg = await Message.find({ chatRoomId });
+    return res.status(201).json({ message: result, chatRoomMsg });
   } catch (err) {
     console.log(err);
   }
